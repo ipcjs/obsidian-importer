@@ -43,7 +43,8 @@ export const defaultYarleOptions: YarleOptions = {
 	sanitizeResourceNameSpaces: false,
 	replacementChar: '_',
 	pathSeparator: '/',
-	resourcesDir: '_resources',
+	resourcesDir: '.resources',
+	dateFormat: 'YYYY-MM-DDTHH:mm:ss',
 	turndownOptions: {
 		headingStyle: 'atx',
 	},

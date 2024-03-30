@@ -216,6 +216,12 @@ export default class ImporterPlugin extends Plugin {
 
 	async onload() {
 		this.importers = {
+			'evernote': {
+				name: 'Evernote',
+				optionText: 'Evernote (.enex)',
+				importer: EvernoteEnexImporter,
+				helpPermalink: 'import/evernote',
+			},
 			'apple-notes': {
 				name: 'Apple Notes',
 				optionText: 'Apple Notes',
@@ -227,12 +233,6 @@ export default class ImporterPlugin extends Plugin {
 				optionText: 'Bear (.bear2bk)',
 				importer: Bear2bkImporter,
 				helpPermalink: 'import/bear',
-			},
-			'evernote': {
-				name: 'Evernote',
-				optionText: 'Evernote (.enex)',
-				importer: EvernoteEnexImporter,
-				helpPermalink: 'import/evernote',
 			},
 			'keep': {
 				name: 'Google Keep',

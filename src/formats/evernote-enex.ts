@@ -7,7 +7,7 @@ import { defaultYarleOptions, dropTheRope } from './yarle/yarle';
 export class EvernoteEnexImporter extends FormatImporter {
 	init() {
 		this.addFileChooserSetting('Evernote', ['enex'], true);
-		this.addOutputLocationSetting('Evernote');
+		this.addOutputLocationSetting('');
 	}
 
 	async import(ctx: ImportContext) {

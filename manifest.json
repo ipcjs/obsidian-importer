@@ -1,6 +1,6 @@
 {
-	"id": "obsidian-importer",
-	"name": "Importer",
+	"id": "obsidian-importer.dev",
+	"name": "Importer.dev",
 	"version": "1.6.1",
 	"minAppVersion": "0.15.0",
 	"description": "Import data from Notion, Evernote, Apple Notes, Microsoft OneNote, Google Keep, Bear, Roam, and HTML files.",
