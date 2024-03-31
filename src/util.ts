@@ -8,9 +8,21 @@ let windowsTrailingRe = /[\. ]+$/;
 let startsWithDotRe = /^\./; // Regular expression to match filenames starting with "."
 let badLinkRe = /[\[\]#|^]/g; // Regular expression to match characters that interferes with links: [ ] # | ^
 
+const illegalReReplaces: Record<string, string> = {
+	'<': '＜',
+	'>': '＞',
+	':': '：',
+	'"': '＂',
+	'/': '／',
+	'\\': '＼',
+	'|': '｜',
+	'?': '？',
+	'*': '＊'
+};
+
 export function sanitizeFileName(name: string) {
 	return name
-		.replace(illegalRe, '')
+		.replace(illegalRe, (s)=> illegalReReplaces[s] ?? s)
 		.replace(controlRe, '')
 		.replace(reservedRe, '')
 		.replace(windowsReservedRe, '')
