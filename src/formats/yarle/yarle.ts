@@ -32,7 +32,7 @@ export const defaultYarleOptions: YarleOptions = {
 	useZettelIdAsFilename: false,
 	plainTextNotesOnly: false,
 	skipWebClips: false,
-	useHashTags: true,
+	useHashTags: false,
 	nestedTags: {
 		separatorInEN: '_',
 		replaceSeparatorWith: '/',
