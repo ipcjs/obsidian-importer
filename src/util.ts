@@ -28,7 +28,7 @@ const illegalReReplaces: Record<string, string> = {
 
 function replaceIllegalChar(name: string) {
 	for (const [search, replacement] of Object.entries(illegalReReplaces)) {
-		name = name.replace(search, replacement);
+		name = name.replaceAll(search, replacement);
 	}
 	return name;
 }
