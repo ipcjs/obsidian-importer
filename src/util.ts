@@ -1,6 +1,5 @@
 import { FrontMatterCache, stringifyYaml } from 'obsidian';
 
-let illegalRe = /[\/\?<>\\:\*\|"]/g;
 let controlRe = /[\x00-\x1f\x80-\x9f]/g;
 let reservedRe = /^\.+$/;
 let windowsReservedRe = /^(con|prn|aux|nul|com[0-9]|lpt[0-9])(\..*)?$/i;
@@ -8,21 +7,34 @@ let windowsTrailingRe = /[\. ]+$/;
 let startsWithDotRe = /^\./; // Regular expression to match filenames starting with "."
 let badLinkRe = /[\[\]#|^]/g; // Regular expression to match characters that interferes with links: [ ] # | ^
 
+// let illegalRe = /[\/\?<>\\:\*\|"]/g;
 const illegalReReplaces: Record<string, string> = {
+	' <': '＜',
 	'<': '＜',
+	'> ': '＞',
 	'>': '＞',
+	': ': '：',
 	':': '：',
 	'"': '＂',
+	' / ': '／',
 	'/': '／',
+	' \\ ': '＼',
 	'\\': '＼',
+	' | ': '｜',
 	'|': '｜',
 	'?': '？',
 	'*': '＊'
 };
 
+function replaceIllegalChar(name: string) {
+	for (const [search, replacement] of Object.entries(illegalReReplaces)) {
+		name = name.replace(search, replacement);
+	}
+	return name;
+}
+
 export function sanitizeFileName(name: string) {
-	return name
-		.replace(illegalRe, (s)=> illegalReReplaces[s] ?? s)
+	return replaceIllegalChar(name)
 		.replace(controlRe, '')
 		.replace(reservedRe, '')
 		.replace(windowsReservedRe, '')
