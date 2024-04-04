@@ -12,7 +12,7 @@ export const normalizeTitle = (title: string) => {
 	return sanitizeFileName(title).replace(/[\[\]\#\^]/g, '');
 };
 
-export const getFileIndex = (dstPath: string, fileNamePrefix: string): number | string => {
+export const getFileIndex = (dstPath: string, fileNamePrefix: string): number => {
 	const index = fs
 		.readdirSync(dstPath)
 		.filter(file => {
