@@ -1,5 +1,11 @@
 import { FrontMatterCache, stringifyYaml } from 'obsidian';
+import { yarleOptions } from './formats/yarle/yarle';
 
+export interface CharacterMap {
+	[key: string]: string;
+}
+
+let illegalRe = /[\/\?<>\\:\*\|"]/g;
 let controlRe = /[\x00-\x1f\x80-\x9f]/g;
 let reservedRe = /^\.+$/;
 let windowsReservedRe = /^(con|prn|aux|nul|com[0-9]|lpt[0-9])(\..*)?$/i;
@@ -7,34 +13,16 @@ let windowsTrailingRe = /[\. ]+$/;
 let startsWithDotRe = /^\./; // Regular expression to match filenames starting with "."
 let badLinkRe = /[\[\]#|^]/g; // Regular expression to match characters that interferes with links: [ ] # | ^
 
-// let illegalRe = /[\/\?<>\\:\*\|"]/g;
-const illegalReReplaces: Record<string, string> = {
-	' <': '＜',
-	'<': '＜',
-	'> ': '＞',
-	'>': '＞',
-	': ': '：',
-	':': '：',
-	'"': '＂',
-	' / ': '／',
-	'/': '／',
-	' \\ ': '＼',
-	'\\': '＼',
-	' | ': '｜',
-	'|': '｜',
-	'?': '？',
-	'*': '＊'
-};
-
-function replaceIllegalChar(name: string) {
-	for (const [search, replacement] of Object.entries(illegalReReplaces)) {
+export function replaceByCharacterMap(characterMap: CharacterMap, name: string) {
+	for (const [search, replacement] of Object.entries(characterMap)) {
 		name = name.replaceAll(search, replacement);
 	}
 	return name;
 }
 
 export function sanitizeFileName(name: string) {
-	return replaceIllegalChar(name)
+	return replaceByCharacterMap(yarleOptions.filenameCharacterMap, name)
+		.replace(illegalRe, '')
 		.replace(controlRe, '')
 		.replace(reservedRe, '')
 		.replace(windowsReservedRe, '')

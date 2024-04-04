@@ -3,6 +3,7 @@ import { fs } from '../../../filesystem';
 import { MetaData } from '../models/MetaData';
 import { yarleOptions } from '../yarle';
 import { escapeStringRegexp } from './escape-string-regexp';
+import { replaceByCharacterMap } from '../../../util';
 
 export const getMetadata = (note: any, notebookName: string): MetaData => {
 	return {
@@ -83,16 +84,21 @@ export const logTags = (note: any): string => {
 		const tagOptions = yarleOptions.nestedTags;
 
 		const tags = tagArray.map((tag: any) => {
-			let cleanTag = tag
-				.toString()
-				.replace(/^#/, '');
-			if (tagOptions) {
-				cleanTag = cleanTag.replace(new RegExp(escapeStringRegexp(tagOptions.separatorInEN), 'g'), tagOptions.replaceSeparatorWith);
+			let cleanTag = tag.toString();
+			if (yarleOptions.tagCharacterMap) {
+				cleanTag = replaceByCharacterMap(yarleOptions.tagCharacterMap, cleanTag);
 			}
+			else {
+				cleanTag = cleanTag
+					.replace(/^#/, '');
+				if (tagOptions) {
+					cleanTag = cleanTag.replace(new RegExp(escapeStringRegexp(tagOptions.separatorInEN), 'g'), tagOptions.replaceSeparatorWith);
+				}
 
-			const replaceSpaceWith = (tagOptions && tagOptions.replaceSpaceWith) || '-';
+				const replaceSpaceWith = (tagOptions && tagOptions.replaceSpaceWith) || '-';
 
-			cleanTag = cleanTag.replace(/ /g, replaceSpaceWith);
+				cleanTag = cleanTag.replace(/ /g, replaceSpaceWith);
+			}
 
 			return `${yarleOptions.useHashTags ? '#' : ''}${cleanTag}`;
 		});

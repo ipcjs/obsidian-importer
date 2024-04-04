@@ -38,6 +38,45 @@ export const defaultYarleOptions: YarleOptions = {
 		replaceSeparatorWith: '／',
 		replaceSpaceWith: '_',
 	},
+	filenameCharacterMap: {
+		' <': '＜',
+		'<': '＜',
+		'> ': '＞',
+		'>': '＞',
+		': ': '：',
+		':': '：',
+		'"': '＂',
+		' / ': '／',
+		'/': '／',
+		' \\ ': '＼',
+		'\\': '＼',
+		' | ': '｜',
+		'|': '｜',
+		'?': '？',
+		'*': '＊'
+	},
+	tagCharacterMap: {
+		' <': '＜',
+		'<': '＜',
+		'> ': '＞',
+		'>': '＞',
+		': ': '：',
+		':': '：',
+		'"': '＂',
+		' / ': '／',
+		'/': '／',
+		' \\ ': '＼',
+		'\\': '＼',
+		' | ': '｜',
+		'|': '｜',
+		'?': '？',
+		'*': '＊',
+		' (': '（',
+		'(': '（',
+		') ': '）',
+		')': '）',
+		' ': '_'
+	},
 	obsidianTaskTag: '',
 	urlEncodeFileNamesAndLinks: false,
 	sanitizeResourceNameSpaces: false,
@@ -192,7 +231,7 @@ export async function dropTheRope(options: YarleOptions, ctx: ImportContext): Pr
 	for (const enex of options.enexSources) {
 		if (ctx.isCancelled()) return;
 
-		
+
 		let notebookStackProperties;
 		const runtimeProps = RuntimePropertiesSingleton.getInstance();
 
@@ -203,14 +242,14 @@ export async function dropTheRope(options: YarleOptions, ctx: ImportContext): Pr
 			utils.setNotebookStackPaths(notebookStackProperties, options);
 			runtimeProps.setCurrentNotebookName(notebookStackProperties.basename);
 			runtimeProps.setCurrentNotebookFullpath(notebookStackProperties.fullpath);
-		}	
+		}
 		else {
 			utils.setSingleNotebookPaths(enex, options);
 			runtimeProps.setCurrentNotebookName(enex.basename);
 			runtimeProps.setCurrentNotebookFullpath(enex.fullpath);
 		}
 
-		
+
 		await parseStream(options, enex, ctx);
 		outputNotebookFolders.push(utils.getNotesPath());
 		options.outputDir = orginalOutputDir;

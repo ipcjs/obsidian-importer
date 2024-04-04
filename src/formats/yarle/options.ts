@@ -1,4 +1,5 @@
 import { PickedFile } from '../../filesystem';
+import { CharacterMap } from '../../util';
 import { TagSeparatorReplaceOptions } from './models';
 
 export interface YarleOptions {
@@ -32,6 +33,8 @@ export interface YarleOptions {
 	monospaceIsCodeBlock?: boolean;
 	dateFormat?: string;
 	nestedTags?: TagSeparatorReplaceOptions;
+	filenameCharacterMap: CharacterMap;
+	tagCharacterMap?: CharacterMap;
 	keepImageSize?: boolean;
 	keepOriginalAmountOfNewlines?: boolean;
 	generateNakedUrls?: boolean;
