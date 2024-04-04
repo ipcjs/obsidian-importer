@@ -33,6 +33,7 @@ export const defaultYarleOptions: YarleOptions = {
 	plainTextNotesOnly: false,
 	skipWebClips: false,
 	useHashTags: false,
+	keepImageSize: true,
 	nestedTags: {
 		separatorInEN: '/',
 		replaceSeparatorWith: '／',

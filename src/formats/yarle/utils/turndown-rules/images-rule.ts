@@ -12,6 +12,7 @@ export const imagesRule = {
 			return '';
 		}
 		const value = nodeProxy.src.value;
+		const text: string = nodeProxy.alt?.value || value.split('/').reverse()[0] || '';
 		const widthParam = node.width || '';
 		const heightParam = node.height || '';
 		let realValue = value;
@@ -30,7 +31,7 @@ export const imagesRule = {
 				return `![[${realValue}${sizeString}]]`;
 			}
 			else {
-				return `![${sizeString}](${realValue})`;
+				return `![${text}${sizeString}](${realValue})`;
 			}
 		}
 
@@ -38,8 +39,6 @@ export const imagesRule = {
 			return `![[${realValue}]]`;
 		}
 
-		const srcSpl = nodeProxy.src.value.split('/');
-
-		return `![${srcSpl[srcSpl.length - 1]}](${realValue})`;
+		return `![${text}](${realValue})`;
 	},
 };
